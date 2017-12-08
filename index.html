@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Hamster Game</title>
+		<link rel="stylesheet" href="css/style.css"/>
+	</head>
+
+	<body>
+		<h1>Hamster Game</h1>
+		<h4>Have up to 3 hamsters and make money to buy a castle!</h4>
+		
+		<div id="content">
+			<div id="beginningDiv">
+				<div>Hello!</div>
+				<br/>
+				<button id="startButton">Let's start!</button>
+			</div>
+
+			<div id="formDiv">
+				<form id="createHamsters">
+					<legend>Your very first hamster!</legend>
+					<label for="firstHamsterName">Name</label>
+					<input type="text" id="firstHamsterName" name="hamsterName"/>
+					<br/>
+
+					<label for="firstHamsterJob">Job</label>
+					<button id="running" value="Run">Running</button>
+					<button id="walking" value="Walk">Walking</button>
+					<button id="cleaning" value="Clean">Cleaning</button>
+					<br/>
+
+					<input type="submit" id="submitButton" value="Submit"/>
+				</form>
+			</div>
+		</div>
+
+		<script src="js/app.js"></script>
+	</body>
+</html>
