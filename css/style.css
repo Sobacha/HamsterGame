@@ -1,24 +1,74 @@
 html {
 	height: 100%;
-	font-family: "Comic Sans MS", "Comic Sans", cursive;}
+	font-family: "Comic Sans MS", "Comic Sans", cursive; }
 
 body {
 	text-align: center;
-	min-height: 100%;}
+	min-height: 100%; }
 
 #content {
-	border: 3px double #31373f;
+	border-top: 3px solid #31373f;
 	display: block;
-	padding: 30px 50px;
+	padding: 30px 50px 30px 50px;
 	margin: 20px auto 50px auto;
 	width: 80%;
 	min-height: 4em;
 	overflow: auto;
-	text-align: center;}
+	text-align: center; }
 
-#beginningDiv {
+#goal, #beginningDiv, #statusContent {
 	margin: 20px auto 20px auto;
-	position: center;}
+	position: center; }
+#goal {
+	margin: 0 !important; }
 
-#formDiv {
-	display: none;}
+#formDiv, #hamsterContent, #hamsterFilled {
+	display: none; }
+
+#form {
+	margin: 20px 0 20px 0; }
+#nameInputDiv {
+	padding: 20px; }
+
+button, #submitButton {
+	font-family: inherit;
+        font-weight: bold; }
+#startButton {
+        padding: 15px 40px;
+    	border-style: solid;
+    	font-size: large; }
+/*#submitButton {
+	color: teal;
+	padding: 10px 20px;
+    	border-style: solid;
+    	border-radius: 100px; }
+*/
+#tabs {
+	display: flex;
+	border-bottom-color: black;
+    	border-bottom-style: solid; }
+#hamsterTab, #statusTab {
+	border: black;
+    	border-bottom-style: solid;
+    	background-color: black;
+    	color: white;}
+#hamsterTab:disabled {
+	border: grey;
+	background-color: grey; }
+
+table {
+	width: 100%; }
+th. td {
+	padding: 7px 10px 10px 10px; }
+th {
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	font-size: 90%;
+	border-bottom: 2px solid #111111;
+	border-top: 1px solid #999;
+	text-align: left; }
+
+#currentJob p {
+	margin: 0; }
+#jobButtons {
+	display: inline-flex; }
