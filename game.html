@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<title>Hamster Game</title>
+		<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 		<link rel="stylesheet" href="css/style.css"/>
 	</head>
 
@@ -9,18 +10,18 @@
 		<div id="warapper">
 			<header>
 				<h1>Hamster Game</h1>
-				<h4>Have up to 5 hamsters and make money to buy a castle!</h4>
 			</header>
 
-			<div id="content">
+			<div id="contentGame">
 				<div id="goal">
 					<div id="price"></div>
 					<div id="money"></div>
 				</div>
 	
 				<div id="tabs">
-					<button id="hamsterTab">New Hamster</button>
+					<button id="hamsterTab"></button>
 					<button id="statusTab">Status</button>
+					<button id="infoTab">About Hamster Game</button>
 				</div>
 
 				<div id="hamsterContent">
@@ -32,18 +33,27 @@
 		                                        	<input type="text" id="hamsterName" name="hamsterName" value="Hamster"/>
 							</div>
 							<div id="submitButtonDiv"> 
-		                                        	<input type="submit" id="submitButton" value="Submit"/>
+		                                        	<input type="submit" id="submitButton" value="Buy"/>
 							</div>
 		                                </form>
 		                        </div>
 				</div>
 	
-				<div id="hamsterFilled">
-					<p>You can't have more than 5 hamsters.<p>
-				</div>
-	
 				<div id="statusContent">
-					<table id="hamsterWrapper"></table>
+					<table id="hamsterWrapper">
+						<tr>
+							<th>Name</th>
+							<th>Level</th>
+							<th>Job</th>
+							<th></th> 
+							<th>Time until level up</th>
+						</tr>
+					</table>
+				</div>
+
+				<div id="infoContent">
+					<p id="gameInfo"></p>
+					<ul id="jobDescription"></ul>
 				</div>
 
 				<div id="control">

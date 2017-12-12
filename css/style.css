@@ -6,52 +6,85 @@ body {
 	text-align: center;
 	min-height: 100%; }
 
-#content {
+h4 {
+	margin-top: 0;
+	margin-bottom: 0; }
+
+#content, #contentGame {
 	border-top: 3px solid #31373f;
 	display: block;
 	padding: 30px 50px 30px 50px;
-	margin: 20px auto 50px auto;
+	margin: 0px auto 50px auto;
 	width: 80%;
 	min-height: 4em;
 	overflow: auto;
 	text-align: center; }
+#contentGame {
+	padding-top: 0 !important; }
 
-#goal, #beginningDiv, #statusContent {
+#goal {
 	margin: 20px auto 20px auto;
 	position: center; }
-#goal {
-	margin: 0 !important; }
 
-#formDiv, #hamsterContent, #hamsterFilled {
+#jobDescription {
+	list-style: none; }
+
+#formDiv, #hamsterContent, #infoContent{
 	display: none; }
 
 #form {
 	margin: 20px 0 20px 0; }
 #nameInputDiv {
 	padding: 20px; }
+#hamsterName {
+	height: 20px; }
 
 button, #submitButton {
-	font-family: inherit;
+	font-family: 'Ubuntu', sans-serif;
         font-weight: bold; }
+
+#submitButton {
+	margin: 3px;
+	border-style: solid;
+	border-color: royalblue;
+	color: white;
+	background-color: cornflowerblue;
+        padding: 2px 12px;
+    	border-style: solid;
+	font-size: medium; }
+
 #startButton {
+	margin: 10px;
+	border-style: solid;
+	border-width: thick;
+	border-radius: 13px;
+	border-color: darkseagreen;
+	color: darkseagreen;
+	background-color: white;
         padding: 15px 40px;
     	border-style: solid;
     	font-size: large; }
-/*#submitButton {
-	color: teal;
-	padding: 10px 20px;
-    	border-style: solid;
-    	border-radius: 100px; }
-*/
+
 #tabs {
+	height: auto;
 	display: flex;
 	border-bottom-color: black;
     	border-bottom-style: solid; }
-#hamsterTab, #statusTab {
+#hamsterTab, #statusTab, #infoTab {
+	font-size: 15px;
+	border: white;
+    	border-bottom-style: solid;
+    	background-color: white;
+    	color: black;}
+#hamsterTab:focus, #statusTab:focus, #infoTab:focus {
+	font-size: 15px;
 	border: black;
     	border-bottom-style: solid;
     	background-color: black;
-    	color: white;}
+    	color: white;
+	outline: 0; }
+
+
 #hamsterTab:disabled {
 	border: grey;
 	background-color: grey; }
@@ -72,3 +105,69 @@ th {
 	margin: 0; }
 #jobButtons {
 	display: inline-flex; }
+
+#control, #links {
+	margin-top: 30px; }
+
+#buyCastle {
+	margin: 10px;
+	border-style: solid;
+	border-width: thick;
+	border-radius: 13px;
+	border-color: lightgrey;
+	color: lightgrey;
+	background-color: white;
+        padding: 5px 10px;
+    	border-style: solid;
+    	font-size: large; 
+	vertical-align: bottom; }
+#buyCastle:enabled {
+	margin: 10px;
+	border-style: solid;
+	border-width: thick;
+	border-radius: 13px;
+	border-color: crimson;
+	color: crimson;
+	background-color: white;
+        padding: 5px 10px;
+    	border-style: solid;
+    	font-size: large; 
+	vertical-align: bottom; }
+#restartInGamePg {
+	margin: 10px;
+	border-style: solid;
+	border-width: thick;
+	border-radius: 13px;
+	border-color: dimgrey;
+	color: dimgrey;
+	background-color: white;
+        padding: 5px 10px;
+    	border-style: solid;
+    	font-size: large; 
+	vertical-align: bottom; }
+
+#restart {
+	margin: 10px;
+	border-style: solid;
+	border-width: thick;
+	border-radius: 13px;
+	border-color: steelblue;
+	color: steelblue;
+	background-color: white;
+        padding: 15px 40px;
+    	border-style: solid;
+    	font-size: large; 
+	vertical-align: bottom; } 
+#return {
+	margin: 10px;
+	border-style: solid;
+	border-width: thick;
+	border-radius: 13px;
+	border-color: dimgrey;
+	color: dimgrey;
+	background-color: white;
+        padding: 5px 10px;
+    	border-style: solid;
+    	font-size: large; 
+	vertical-align: bottom; } 
+

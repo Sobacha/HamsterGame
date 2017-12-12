@@ -1,5 +1,5 @@
 'use strict';
-localStorage.clear();
+
 
 // Job objects
 var jobs = {
@@ -10,13 +10,23 @@ var jobs = {
 	},
 	Run: {
 		name: "Run",
-		reqLev: 3,
-		salary: 50,
+		reqLev: 2,
+		salary: 30,
 	},
 	Clean: {
 		name: "Clean",
-		reqLev: 5,
-		salary: 100,
+		reqLev: 4,
+		salary: 75,
+	},
+	Teach: {
+		name: "Teach",
+		reqLev: 6,
+		salary: 125,
+	},
+	Invest: {
+		name: "Invest",
+		reqLev: 8,
+		salary: 300,
 	},
 }
 
@@ -24,7 +34,7 @@ var jobs = {
 if (localStorage.getItem('game')) {
 	window.location.href = 'game.html';
 } else {
-	var game = {Hamsters: [], Jobs: jobs, Money: 0, Price: 100, Cleared: false};
+	var game = {Hamsters: [], Jobs: jobs, Money: 0, Price: 50000, HamsterPrice: 200, Cleared: false};
 }
 
 

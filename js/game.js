@@ -1,32 +1,39 @@
 'use strict';
 
 
-// if user tries to access this page without starting game, redirect to index.html.
-/*if (!localStorage.getItem('game')) {
-        window.location.href = 'index.html';
-} else {
-	// Retrieve Game object from Local Storage
-	var game = localStorage.getItem('game');
-	game = JSON.parse(game);
-	console.log(game);
-}
-
-var keysJobs = Object.keys(game.Jobs);
-*/
 
 /***** Display content depends on tab *****/
 
 // Onclick hamster tab, show content.
 function displayHamsterContentOnClick() {
+	// focus hamster tab
+	document.getElementById('hamsterTab').focus();
+
 	document.getElementById('hamsterContent').style.display = "block";	
 	document.getElementById('statusContent').style.display = "none";
+	document.getElementById('infoContent').style.display = "none";
 }
 
 // Onclick status tab, show content.
 function displayStatusContentOnClick() {
+	// focus status tab
+	document.getElementById('statusTab').focus();
+
         document.getElementById('hamsterContent').style.display = "none";
-        document.getElementById('statusContent').style.display = "block"; 
+        document.getElementById('statusContent').style.display = "block";
+	document.getElementById('infoContent').style.display = "none";
 }
+
+// Onclick info tab, show content.
+function displayInfoContentOnClick() {
+	// focus info tab
+	document.getElementById('infoTab').focus();
+        
+	document.getElementById('hamsterContent').style.display = "none";
+        document.getElementById('statusContent').style.display = "none"; 
+	document.getElementById('infoContent').style.display = "block";
+}
+
 
 // Disable hamster tab if 5 hamsters exist.
 function disableHamsterTab() {
@@ -34,6 +41,22 @@ function disableHamsterTab() {
 		document.getElementById('hamsterTab').disabled = true;
 	}
 }
+
+
+// Make hamsters more expensive
+function calculatePrice() {
+	return game.HamsterPrice * game.Hamsters.length * game.Hamsters.length;
+}
+
+// Enable/disable hamster tab if not enough money to buy a hamster.
+function enableDisableHamsterTab() {
+	if (game.Money < calculatePrice() || game.Hamsters.length === 5) {
+		document.getElementById('hamsterTab').disabled = true;
+	} else {
+		document.getElementById('hamsterTab').disabled = false;
+	}
+}
+
 
 
 /***** Create hamster *****/
@@ -59,8 +82,38 @@ function createHamster() {
 			job: game.Jobs.Walk,
 			level: 1,
 			levelupTimer: 0 };
+		game.Money = game.Money - calculatePrice();
 		game.Hamsters.push(hamster);
+		// Update hamster price on hamster tab
+		insertHamsterTabHtml();
 	}
+}
+
+
+/***** Insert HTML for hamster tab with hamster price *****/
+function insertHamsterTabHtml() {
+	var hamsterTab = document.getElementById('hamsterTab');
+	hamsterTab.innerHTML = 'New Hamster costs ' + calculatePrice();
+}
+
+
+/***** Insert HTML for game info content *****/
+
+// Insert job  HTML
+function insertGameInfoHtml() {
+	var gameInfo = document.getElementById('gameInfo');
+	gameInfo.innerHTML = 'Your goal is to be a castle owner! Although the castle costs a lot of money, cute little hamsters are here to help you to buy the castle! At the beginning you have one hamster and the hamster dilligently works so you can get money to buy next hamster(up to 5 hamsters) and eventually the castle. For your information, price for a hamster goes up as you buy them more. There are 5 jobs. Each job requires certain level. Once your hamsters reach the required level, a job will be available. You can change job by clicking job buttons.';
+
+	var jobDescription = document.getElementById('jobDescription');
+	var insertingHtml = '';
+	for (var i = 0; i < keysJobs.length; i++) {
+		insertingHtml = insertingHtml.concat(
+				'<li>' + game.Jobs[keysJobs[i]].name +
+				': [required level: ' + game.Jobs[keysJobs[i]].reqLev +
+				', salary: ' + game.Jobs[keysJobs[i]].salary +
+				']</li>');
+	}
+	jobDescription.innerHTML = insertingHtml;
 }
 
 
@@ -87,64 +140,49 @@ function updateHamsterJob(hamsterObj, jobObj) {
 
 // Set event listener for job buttons to update job for hamster
 function eventListenerUpdateOneHamstersJob(jobButton, hamster, job) {
-			jobButton.addEventListener(
-					'click',
-					function(){updateHamsterJob(hamster, job);},
-					false);
+	jobButton.addEventListener(
+		'click',
+		function(){updateHamsterJob(hamster, job);},
+		false);
 }
 
 
-function eventListenerUpdateHamstersJob() {
+function eventListenerUpdateHamstersJob(hamsterObj) {
 	for (var i = 0; i < keysJobs.length; i++) {
-		for (var h = 0; h < game.Hamsters.length; h++) {
-        		var jobButton = document.getElementById(
-					game.Hamsters[h].number +
-					game.Jobs[keysJobs[i]].name);
-			eventListenerUpdateOneHamstersJob(jobButton, game.Hamsters[h], game.Jobs[keysJobs[i]]);
-
-		}
+        	var jobButton = document.getElementById(
+				hamsterObj.number +
+				game.Jobs[keysJobs[i]].name);
+		eventListenerUpdateOneHamstersJob(jobButton, hamsterObj, game.Jobs[keysJobs[i]]);
 	}
 }
 
 
 /***** Insert status HTML *****/
 
-// Insert status content HTML
-function insertStatusContent() {
-	var statusContentHtml = '';
-	var statusContent = document.getElementById('hamsterWrapper');
+// Insert status content HTML for one hamster
+function addStatusContentForNewHamster(hamsterObj) {
+	var statusTable = document.getElementById('hamsterWrapper');
+	var newRow = statusTable.insertRow(hamsterObj.number);
 
-	statusContentHtml = statusContentHtml.concat(
-				'<tr>' +
-					'<th>Name</th>' +
-					'<th>Level</th>' +
-					'<th>Job</th>' +
-					'<th>Time until level up</th>' +
-				'</tr>');
+	var name = newRow.insertCell(0);
+	name.id = "hamsterName";
+	name.innerHTML = hamsterObj.name;
 
-	for (var i = 0; i < game.Hamsters.length; i++) {
-		// hamster detail
-		statusContentHtml = statusContentHtml.concat(
-				'<tr>' +
-					'<td id="hamsterName">' + game.Hamsters[i].name +
-					'</td>' +
-					'<td id="currentLevel' + game.Hamsters[i].number + '">' + game.Hamsters[i].level +
-					'</td>' +
-					'<td id="currentJob">' +
-						'<p id="jobName' + game.Hamsters[i].number + '">' +
-							game.Hamsters[i].job.name +
-						'</p>' +
-						'<p id="jobButtons">' +
-							insertJobButtons(game.Hamsters[i]) +
-						'</p>' +
-					'</td>' +
-					'<td id="leftInTimer' + game.Hamsters[i].number + '">' +
-						(21-game.Hamsters[i].levelupTimer) +
-					'</td>' +
-				'</tr>');
-	}
+	var level = newRow.insertCell(1);
+	level.id = "currentLevel" + hamsterObj.number;
+	level.innerHTML = hamsterObj.level;
 
-	statusContent.innerHTML = statusContentHtml;
+	var job = newRow.insertCell(2);
+	job.id = "currentJob";
+	job.innerHTML = '<p id="jobName' + hamsterObj.number + '">' + hamsterObj.job.name + '</p>';
+
+	var jobButtons = newRow.insertCell(3);
+	jobButtons.id = "jobButtonsCell";
+	jobButtons.innerHTML = insertJobButtons(hamsterObj);
+
+	var time = newRow.insertCell(4);
+	time.id = "leftInTimer" + hamsterObj.number;
+	time.innerHTML = (21-hamsterObj.levelupTimer);
 }
 
 
@@ -217,6 +255,8 @@ function updateMoneyTimePerSec() {
 		if (game.Money >= game.Price) {
 			document.getElementById('buyCastle').disabled = false;
 		}
+		// Enable/disable hamster tab if not enough money to buy a hamster.
+		enableDisableHamsterTab();	
 		// Update money in HTML
 		document.getElementById('money').innerHTML = 'Current money: ' + game.Money;
 
@@ -249,28 +289,37 @@ if (!localStorage.getItem('game')) {
 	// Retrieve Game object from Local Storage
 	var game = localStorage.getItem('game');
 	game = JSON.parse(game);
-	console.log(game);
+	//console.log(game.Hamsters);
+	var keysJobs = Object.keys(game.Jobs);
 }
 
-var keysJobs = Object.keys(game.Jobs);
 
+// focus status tab
+displayStatusContentOnClick();
+
+insertHamsterTabHtml();
+insertGameInfoHtml();
 // Check if there are five hamsters.
 disableHamsterTab();
 // Insert castle price in html
 document.getElementById('price').innerHTML = 'Castle price: ' + game.Price;
-insertStatusContent();
-eventListenerUpdateHamstersJob();
-
-
+// Insert status rows
 for (var i = 0; i < game.Hamsters.length; i++) {
+	console.log(game.Hamsters[i]);
+	addStatusContentForNewHamster(game.Hamsters[i]);
 	// Update job buttons
-	enableDisableJobButtons(game.Hamsters[i]);
+        enableDisableJobButtons(game.Hamsters[i]);
+	eventListenerUpdateHamstersJob(game.Hamsters[i]);
 }
 
+
+// Set event listeners
 var hamsterTab = document.getElementById('hamsterTab');
 var statusTab = document.getElementById('statusTab');
+var infoTab = document.getElementById('infoTab');
 hamsterTab.addEventListener('click', displayHamsterContentOnClick, false);
 statusTab.addEventListener('click', displayStatusContentOnClick, false);
+infoTab.addEventListener('click', displayInfoContentOnClick, false);
 
 var buyCastle = document.getElementById('buyCastle');
 buyCastle.addEventListener('click', onclickBuyCastle, false);
@@ -288,16 +337,19 @@ hamsterForm.addEventListener('submit', function(event) {
 		alert('Please input name for your hamster.');
 	} else {
 		createHamster();
-		//localStorage.setItem('game', JSON.stringify(game));
-		insertStatusContent();
-		console.log(game);
+		// Insert status row for new hamster in table.
+		addStatusContentForNewHamster(game.Hamsters[game.Hamsters.length-1]);
+		//console.log(game);
 		document.getElementById('hamsterName').value = 'Hamster';
-		document.getElementById('statusContent').style.display = 'block';
-		document.getElementById('hamsterContent').style.display = 'none';
+		// Switch tab to status
+		displayStatusContentOnClick();
+		// Disable hamster tab if 5 hamsters are created.
 		disableHamsterTab();
+		// Set event listener for new hamster.
+		eventListenerUpdateHamstersJob(game.Hamsters[game.Hamsters.length-1]);
 	}
 });
 
+// Main loop to update money, level, timer in sec base.
 updateEverything();
-
 

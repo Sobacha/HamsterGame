@@ -11,7 +11,6 @@ if (!localStorage.getItem('game')) {
 	if (!game.Cleared) {
 		window.location.href = 'game.html';
 	}
-	console.log(game);
 }
 
 var keysJobs = Object.keys(game.Jobs);
