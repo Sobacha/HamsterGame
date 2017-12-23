@@ -145,7 +145,7 @@ function insertHamsterTabHtml() {
 // Insert job  HTML
 function insertGameInfoHtml() {
 	var gameInfo = document.getElementById('gameInfo');
-	gameInfo.innerHTML = 'Your goal is to be a castle owner! Although the castle costs a lot of money, cute little hamsters are here to help you to buy the castle! At the beginning you have one hamster and the hamster dilligently works so you can get money to buy next hamster(up to 5 hamsters) and eventually the castle. For your information, price for a hamster goes up as you buy them more. There are 5 jobs. Each job requires certain level. Once your hamsters reach the required level, a job will be available. You can change job by clicking job buttons. One last reminder! Weather changes every miniute and hamsters performances will change depends on the weather:)';
+	gameInfo.innerHTML = 'Your goal is to be a castle owner! Although the castle costs a lot of money, cute little hamsters are here to help you to buy the castle! At the beginning you have one hamster and the hamster dilligently works so you can get money to buy next hamster(up to 5 hamsters) and eventually the castle. For your information, price for a hamster goes up as you buy them more. There are 5 jobs. Each job requires certain level. Once your hamsters reach the required level, a job will be available. You can change job by clicking job buttons. One last reminder! Weather changes every minute and hamsters\' performances will change depending on the weather:)';
 
 	var jobDescription = document.getElementById('jobDescription');
 	var insertingHtml = '';
