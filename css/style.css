@@ -2,13 +2,16 @@ html {
 	height: 100%;
 	font-family: "Comic Sans MS", "Comic Sans", cursive; }
 
+
 body {
 	text-align: center;
 	min-height: 100%; }
 
+
 h4 {
 	margin-top: 0;
 	margin-bottom: 0; }
+
 
 #content, #contentGame {
 	border-top: 3px solid #31373f;
@@ -22,16 +25,18 @@ h4 {
 #contentGame {
 	padding-top: 0 !important; }
 
+
 #goal {
 	margin: 20px auto 20px auto;
 	position: center; }
 
+
 #jobDescription {
 	list-style: none; }
 
+
 #formDiv, #hamsterContent, #infoContent{
 	display: none; }
-
 #form {
 	margin: 20px 0 20px 0; }
 #nameInputDiv {
@@ -39,10 +44,10 @@ h4 {
 #hamsterName {
 	height: 20px; }
 
+
 button, #submitButton {
 	font-family: 'Ubuntu', sans-serif;
         font-weight: bold; }
-
 #submitButton {
 	margin: 3px;
 	border-style: solid;
@@ -52,7 +57,6 @@ button, #submitButton {
         padding: 2px 12px;
     	border-style: solid;
 	font-size: medium; }
-
 #startButton {
 	margin: 10px;
 	border-style: solid;
@@ -64,6 +68,7 @@ button, #submitButton {
         padding: 15px 40px;
     	border-style: solid;
     	font-size: large; }
+
 
 #tabs {
 	height: auto;
@@ -83,11 +88,10 @@ button, #submitButton {
     	background-color: black;
     	color: white;
 	outline: 0; }
-
-
 #hamsterTab:disabled {
 	border: grey;
 	background-color: grey; }
+
 
 table {
 	width: 100%; }
@@ -100,74 +104,57 @@ th {
 	border-bottom: 2px solid #111111;
 	border-top: 1px solid #999;
 	text-align: left; }
-
 #currentJob p {
 	margin: 0; }
 #jobButtons {
 	display: inline-flex; }
 
+
 #control, #links {
 	margin-top: 30px; }
-
-#buyCastle {
+#buyCastle, #restartInGamePg, #restart, #return {
 	margin: 10px;
 	border-style: solid;
 	border-width: thick;
 	border-radius: 13px;
+	background-color: white;
+    	border-style: solid;
+    	font-size: large; 
+	vertical-align: bottom; } 
+#buyCastle {
 	border-color: lightgrey;
 	color: lightgrey;
-	background-color: white;
-        padding: 5px 10px;
-    	border-style: solid;
-    	font-size: large; 
-	vertical-align: bottom; }
+        padding: 5px 10px; }
 #buyCastle:enabled {
-	margin: 10px;
-	border-style: solid;
-	border-width: thick;
-	border-radius: 13px;
 	border-color: crimson;
 	color: crimson;
-	background-color: white;
-        padding: 5px 10px;
-    	border-style: solid;
-    	font-size: large; 
-	vertical-align: bottom; }
+}
 #restartInGamePg {
-	margin: 10px;
-	border-style: solid;
-	border-width: thick;
-	border-radius: 13px;
 	border-color: dimgrey;
 	color: dimgrey;
-	background-color: white;
-        padding: 5px 10px;
-    	border-style: solid;
-    	font-size: large; 
-	vertical-align: bottom; }
-
+	padding: 5px 10px;
+}
 #restart {
-	margin: 10px;
-	border-style: solid;
-	border-width: thick;
-	border-radius: 13px;
 	border-color: steelblue;
 	color: steelblue;
-	background-color: white;
-        padding: 15px 40px;
-    	border-style: solid;
-    	font-size: large; 
-	vertical-align: bottom; } 
+	padding: 15px 40px;
+} 
 #return {
-	margin: 10px;
-	border-style: solid;
-	border-width: thick;
-	border-radius: 13px;
 	border-color: dimgrey;
 	color: dimgrey;
-	background-color: white;
-        padding: 5px 10px;
-    	border-style: solid;
-    	font-size: large; 
-	vertical-align: bottom; } 
+	padding: 5px 10px;
+} 
 
+
+#regular {
+	color: darkred;
+}
+#nice {
+	color: forestgreen;
+}
+#hot {
+	color: red;
+}
+#cold {
+	color: cadetblue;
+}

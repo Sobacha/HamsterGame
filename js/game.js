@@ -1,6 +1,49 @@
 'use strict';
 
 
+/***** Update weather every min *****/
+
+// ajax request, get data
+function getDigit(url, callback){
+	var xmlHttp = new XMLHttpRequest();
+	xmlHttp.onreadystatechange = function(){
+		if(xmlHttp.readyState == 4 && xmlHttp.status == 200){
+			try{
+				var data = JSON.parse(xmlHttp.responseText);
+			} catch(err) {
+				console.log(err.message + "->" + xmlHttp.responseText);
+				return;
+			}
+			callback(data);
+		}
+	};
+	xmlHttp.open("GET", url, true);
+	xmlHttp.send();
+}
+
+
+var weatherDescription = [
+	{weather:'<span id="regular">Just regular day.</span> Your hamsters make regular money.',
+	 percentage:1},
+	{weather:'<span id="nice">It feels so nice right now!</span> Your hamsters are full of energy!\n\nThey make 120% money ;)',
+	 percentage:1.2},
+	{weather:'<span id="hot">It is boiling hot outside!</span> Your hamsters don\'t feel like working!\n\nThey only make 20% money ;)',
+	 percentage:0.2},
+	{weather:'<span id="cold">It is freezing!</span> Your hamsters can\'t work!\n\nThey only make 60% money :<',
+	 percentage:0.6}];
+
+// update weather in html
+function updateWeatherPerMin(){
+	if(game.CounterMin === 60){
+		getDigit('https://www.random.org/integers/?num=1&min=0&max=3&col=1&base=10&format=plain&rnd=new',
+			function(data){
+			game.Weather = data;
+			document.getElementById("weather").innerHTML =
+				weatherDescription[data].weather;});
+		game.CounterMin = 0;
+	}
+}
+
 
 /***** Display content depends on tab *****/
 
@@ -102,7 +145,7 @@ function insertHamsterTabHtml() {
 // Insert job  HTML
 function insertGameInfoHtml() {
 	var gameInfo = document.getElementById('gameInfo');
-	gameInfo.innerHTML = 'Your goal is to be a castle owner! Although the castle costs a lot of money, cute little hamsters are here to help you to buy the castle! At the beginning you have one hamster and the hamster dilligently works so you can get money to buy next hamster(up to 5 hamsters) and eventually the castle. For your information, price for a hamster goes up as you buy them more. There are 5 jobs. Each job requires certain level. Once your hamsters reach the required level, a job will be available. You can change job by clicking job buttons.';
+	gameInfo.innerHTML = 'Your goal is to be a castle owner! Although the castle costs a lot of money, cute little hamsters are here to help you to buy the castle! At the beginning you have one hamster and the hamster dilligently works so you can get money to buy next hamster(up to 5 hamsters) and eventually the castle. For your information, price for a hamster goes up as you buy them more. There are 5 jobs. Each job requires certain level. Once your hamsters reach the required level, a job will be available. You can change job by clicking job buttons. One last reminder! Weather changes every miniute and hamsters performances will change depends on the weather:)';
 
 	var jobDescription = document.getElementById('jobDescription');
 	var insertingHtml = '';
@@ -250,7 +293,7 @@ function formatLevelTimer(i) {
 function updateMoneyTimePerSec() {
 	for (var i = 0; i < game.Hamsters.length; i++) {
 		// Update money
-		game.Money = game.Money + game.Hamsters[i].job.salary;
+		game.Money = game.Money + game.Hamsters[i].job.salary*weatherDescription[game.Weather].percentage;
 		// Enable buy castle button once it makes enough money.
 		if (game.Money >= game.Price) {
 			document.getElementById('buyCastle').disabled = false;
@@ -266,16 +309,20 @@ function updateMoneyTimePerSec() {
 		// Update job buttons
 		enableDisableJobButtons(game.Hamsters[i]);
 	}
-	console.log(game.Money);
+	//console.log("money" + game.Money);
 }
 
 
+
 function updateEverything() {
+	//console.log(game.CounterMin);
+	updateWeatherPerMin();
 	updateMoneyTimePerSec();
-	updateLevelPerTwentySecs();
+	updateLevelPerTwentySecs();	
+	game.CounterMin++;
 	localStorage.setItem('game', JSON.stringify(game));
 	//game = localStorage.getItem('game');
-	//game = JSON.parse(game);
+	//game = JSON.parse(game);	
 	setTimeout(updateEverything, 1000);
 }
 
@@ -301,11 +348,13 @@ insertHamsterTabHtml();
 insertGameInfoHtml();
 // Check if there are five hamsters.
 disableHamsterTab();
-// Insert castle price in html
+// Insert html
 document.getElementById('price').innerHTML = 'Castle price: ' + game.Price;
-// Insert status rows
+document.getElementById("weather").innerHTML = weatherDescription[game.Weather].weather;
+document.getElementById('money').innerHTML = 'Current money: ' + game.Money;
+/// Insert status rows
 for (var i = 0; i < game.Hamsters.length; i++) {
-	console.log(game.Hamsters[i]);
+	//console.log(game.Hamsters[i]);
 	addStatusContentForNewHamster(game.Hamsters[i]);
 	// Update job buttons
         enableDisableJobButtons(game.Hamsters[i]);
@@ -350,6 +399,7 @@ hamsterForm.addEventListener('submit', function(event) {
 	}
 });
 
-// Main loop to update money, level, timer in sec base.
-updateEverything();
 
+
+// Main loop to update money, level, timer in sec base
+setTimeout(updateEverything, 1000);

@@ -34,7 +34,7 @@ var jobs = {
 if (localStorage.getItem('game')) {
 	window.location.href = 'game.html';
 } else {
-	var game = {Hamsters: [], Jobs: jobs, Money: 0, Price: 50000, HamsterPrice: 200, Cleared: false};
+	var game = {Hamsters: [], Jobs: jobs, Money: 0, Price: 50000, HamsterPrice: 200, Weather: 0, CounterMin: 0, Cleared: false};
 }
 
 
@@ -91,4 +91,5 @@ hamsterForm.addEventListener('submit', function(event) {
 		window.location.href = 'game.html';
 	}
 });
+
 
