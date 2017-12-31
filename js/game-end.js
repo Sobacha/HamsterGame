@@ -13,8 +13,6 @@ if (!localStorage.getItem('game')) {
 	}
 }
 
-var keysJobs = Object.keys(game.Jobs);
-
 
 /***** Event listener for buttons *****/
 
