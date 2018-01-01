@@ -294,12 +294,6 @@ function updateMoneyTimePerSec() {
 	for (var i = 0; i < game.Hamsters.length; i++) {
 		// Update money
 		game.Money = game.Money + game.Hamsters[i].job.salary*weatherDescription[game.Weather].percentage;
-		// Enable buy castle button once it makes enough money.
-		if (game.Money >= game.Price) {
-			document.getElementById('buyCastle').disabled = false;
-		}
-		// Enable/disable hamster tab if not enough money to buy a hamster.
-		enableDisableHamsterTab();	
 		// Update money in HTML
 		document.getElementById('money').innerHTML = 'Current money: ' + game.Money;
 
@@ -309,7 +303,12 @@ function updateMoneyTimePerSec() {
 		// Update job buttons
 		enableDisableJobButtons(game.Hamsters[i]);
 	}
-	//console.log("money" + game.Money);
+	// Enable buy castle button once it makes enough money.
+	if (game.Money >= game.Price) {
+		document.getElementById('buyCastle').disabled = false;
+	}
+	// Enable/disable hamster tab if not enough money to buy a hamster.
+	enableDisableHamsterTab();	
 }
 
 
